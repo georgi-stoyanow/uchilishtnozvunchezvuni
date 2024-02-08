@@ -1,0 +1,23 @@
+all: safeint.o safeadd.exe safeamultiply.exe safesubtract.exe safedivide.exe
+    ./safedivide.exe 96 8
+    ./safeadd.exe 12345 87654
+    ./safeamultiply.exe 123 54321
+    ./safesubtract.exe 123456789 56789
+
+safeint.o: safeint.c safeint.h
+    gcc -c safeint.c -o safeint.o
+
+safeadd.exe: safeint.h safeint.c safeadd.c
+    gcc safeadd.c safeint.o -o safeadd.exe
+    
+safesubtract.exe: safeint.h safeint.c safesubtract.c
+    gcc safesubtract.c safeint.o -o safeasubtract.exe
+
+safedivide.exe: safeint.h safeint.c safedividet.c
+    gcc safedivide.c safeint.o -o safedivide.exe
+
+safemultiply.exe: safeint.h safeint.c safemultiply.c
+    gcc safemultiply.c safeint.o -o safeamultiply.exe
+
+clean:
+    del *.o *.exe
